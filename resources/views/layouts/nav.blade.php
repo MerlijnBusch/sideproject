@@ -5,21 +5,27 @@
 
     <div class="nav-action-container">
         @guest
-            <a class="btn"
+            <a class=""
                href="{{ route('login') }}">{{ __('Login') }}</a>
             @if (Route::has('register'))
-                <a class="btn"
+                <a class=""
                    href="{{ route('register') }}">{{ __('Register') }}</a>
             @endif
         @endguest
 
         @auth
-            <a class="btn"
-               href="{{ route('logout') }}"
-               onclick="event.preventDefault(); document.getElementById('logout-form-nav').submit();">
-                {{ __('Logout') }}
-            </a>
-
+        <ul>
+            <li>
+                <a class=""
+                   href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form-nav').submit();">
+                    {{ __('Logout') }}
+                </a>
+            </li>
+            <li>
+                <a class="" href="{{ route('profile.index', auth()->user()->name) }}">{{ auth()->user()->name}}</a>
+            </li>
+        </ul>
             <form id="logout-form-nav"
                   action="{{ route('logout') }}"
                   method="POST">
