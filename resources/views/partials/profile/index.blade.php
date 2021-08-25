@@ -8,17 +8,21 @@
 
 
     @foreach($posts as $post)
+
         <div class="card">
             <div class="card-header">
               Featured
             </div>
                 <div class="card-body">
-                    <img class="card-img-top profile-index-image" src="{{  asset($post->image_path)}}"/>
+                    <img class="card-img-top profile-index-image" src="{{  url($post->image_path . "/" . $post->id)}}"/>
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text">{{$post->description}}</p>
                 </div>
             <div class="card-footer text-muted">
                 2 days ago
+
+                <a class="" href="{{ route('post.show', $post )}}">Mine story</a>
+
             </div>
       </div>
     @endforeach

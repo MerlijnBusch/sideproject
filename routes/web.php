@@ -28,6 +28,10 @@ Route::prefix('profile')->group(function () {
 Route::prefix('post')->group(function () {
     Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
     Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
+    Route::get('/show/{post:uuid}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+
+    Route::post('/comment/store', [App\Http\Controllers\CommentController::class, 'store'])->name('comment.add');
+    Route::post('/reply/store', [App\Http\Controllers\CommentController::class, 'replyStore'])->name('reply.add');
 });
 
-Route::get('storage/public/post/{user}/{slug}', [App\Http\Controllers\ImageController::class, 'show'])->name('image.show');
+Route::get('storage/public/post/{user}/{slug}/{post_id}', [App\Http\Controllers\ImageController::class, 'show'])->name('image.show');

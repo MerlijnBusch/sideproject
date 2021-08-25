@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -61,6 +62,7 @@ class PostController extends Controller
                    'image_path' => $imageName,
                    'description' => $validated['description'],
                    'user_id' => Auth::id(),
+                   'uuid' => Str::uuid(),
                 ]);
 
                 Session::flash('success', "Success!");
@@ -77,7 +79,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('partials.post.show', ['post' => $post]);
     }
 
     /**
