@@ -16,22 +16,26 @@
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 <body>
-<div class="body-container">
     @include('partials.handlers.success')
     @include('partials.handlers.error')
 
     @include('layouts.nav')
 
-    <main class="main-content">
-        <div class="main-content-force-width">
-        @yield('content')
+    <div class="container">
+        @yield('page-title')
+    </div>
+    <main class="main-content container">
+
+
+        @include('layouts.sidebar')
+        <div class="main-content-items">
+            @yield('content')
         </div>
     </main>
 
     @include('layouts.footer')
-</div>
-
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>

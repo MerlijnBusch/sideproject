@@ -24,3 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('profile')->group(function () {
     Route::get('/{name}', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
 });
+
+Route::prefix('post')->group(function () {
+    Route::get('/create', [App\Http\Controllers\PostController::class, 'index'])->name('post.create');
+});

@@ -25,6 +25,10 @@ class ProfileController extends Controller
     public function index($name)
     {
         $user = User::query()->where('name', '=', $name)->first();
+        if (!isset($user)) {
+            abort(404);
+        }
+
         $posts = $user->post()->get();
 
         return view('partials.profile.index', ['user' => $user, 'posts' => $posts]);

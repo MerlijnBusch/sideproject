@@ -1,0 +1,16 @@
+.main-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-content-items {
+    width: 100%;
+}
+
+body {
+    flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}

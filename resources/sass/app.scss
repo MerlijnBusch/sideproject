@@ -6,3 +6,10 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import 'layouts/navbar';
+@import 'layouts/main';
+@import 'layouts/sidebar';
+@import 'layouts/footer';
+
+@import 'partials/profile/index';

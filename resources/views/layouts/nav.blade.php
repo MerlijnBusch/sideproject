@@ -22,9 +22,6 @@
                     {{ __('Logout') }}
                 </a>
             </li>
-            <li>
-                <a class="" href="{{ route('profile.index', auth()->user()->name) }}">{{ auth()->user()->name}}</a>
-            </li>
         </ul>
             <form id="logout-form-nav"
                   action="{{ route('logout') }}"
