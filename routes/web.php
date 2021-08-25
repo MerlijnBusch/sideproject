@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -26,5 +26,8 @@ Route::prefix('profile')->group(function () {
 });
 
 Route::prefix('post')->group(function () {
-    Route::get('/create', [App\Http\Controllers\PostController::class, 'index'])->name('post.create');
+    Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
+    Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
 });
+
+Route::get('storage/public/post/{user}/{slug}', [App\Http\Controllers\ImageController::class, 'show'])->name('image.show');

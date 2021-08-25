@@ -1,6 +1,4 @@
-@extends('layouts.main')
 
-@section('content')
 <form method="POST" action="{{ route('register') }}">
     @csrf
 
@@ -25,4 +23,3 @@
     </button>
 
 </form>
-@endsection

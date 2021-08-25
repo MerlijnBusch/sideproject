@@ -6,13 +6,14 @@
 
 @section('content')
 
+
     @foreach($posts as $post)
         <div class="card">
             <div class="card-header">
               Featured
             </div>
                 <div class="card-body">
-                    <img class="card-img-top profile-index-image" src="{{$post->image_path}}"/>
+                    <img class="card-img-top profile-index-image" src="{{  asset($post->image_path)}}"/>
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text">{{$post->description}}</p>
                 </div>

@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-          return view('partials.post.create');
+
     }
 
     /**
@@ -24,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('partials.post.create');
     }
 
     /**
@@ -35,7 +42,31 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('image')) {
+
+            if ($request->file('image')->isValid()) {
+
+                $validated = $request->validate([
+                    'title' => 'string',
+                    'image' => 'mimes:jpeg,png',
+                    'description' => 'string',
+                ]);
+
+                $extension = $request->image->extension();
+                $request->image->storeAs("\\public\\post\\".Auth()->user()->name."\\", time().".".$extension);
+                $imageName = Storage::url("public\\post\\".Auth()->user()->name."\\" .time().".".$extension);
+
+                Post::create([
+                   'title' => $validated['title'],
+                   'image_path' => $imageName,
+                   'description' => $validated['description'],
+                   'user_id' => Auth::id(),
+                ]);
+
+                Session::flash('success', "Success!");
+                return \Redirect::back();
+            }
+        }
     }
 
     /**

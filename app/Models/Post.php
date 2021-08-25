@@ -9,6 +9,18 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'image_path',
+        'description',
+        'user_id'
+    ];
+
+    protected $hidden = [
+        'updated_at',
+        'created_at'
+    ];
+
     public function user()
     {
 
