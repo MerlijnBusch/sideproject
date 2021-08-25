@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
@@ -24,8 +25,9 @@ class PostFactory extends Factory
         return [
           'title' => $this->faker->sentence(6, true),
           'image_path' => "https://picsum.photos/200/300",
-          'description' => $this->faker->text(200),
+          'description' => $this->faker->text(400),
           'user_id' => 1
+          'uuid' => Str::uuid(),
         ];
     }
 }
