@@ -15,9 +15,7 @@
               <h5 class="card-title">{{$post->title}}</h5>
               <p class="card-text">{{$post->description}}</p>
           </div>
-      <div class="card-footer text-muted">
-          2 days ago
-      </div>
+      @include('partials.post.footer', ['post' => $post])
   </div>
 
   @include('partials.post.comment.replies', ['comments' => $post->comments, 'post_id' => $post->id])
@@ -34,4 +32,8 @@
       </div>
   </form>
 
+@endsection
+
+@section('footer-scripts')
+      @include('layouts.scripts.postFooter')
 @endsection

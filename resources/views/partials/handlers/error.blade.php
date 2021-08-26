@@ -1,13 +1,13 @@
-@if (session()->has('error'))
+@if (session()->has('errors'))
     <div>
-        @if(is_array(session()->get('error')))
+        @if(is_array(session()->get('errors')))
             <ul>
-                @foreach (session()->get('error') as $message)
+                @foreach (session()->get('errors') as $message)
                     <li>{{ $message }}</li>
                 @endforeach
             </ul>
         @else
-            {{ session()->get('error') }}
+            {{ session()->get('errors') }}
         @endif
     </div>
 @endif

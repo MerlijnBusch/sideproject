@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -114,5 +116,31 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function like(Request $request)
+    {
+        $this->query($request->uuid, 'like_post');
+        return response()->json(['status' => 'Success']);
+    }
+
+    public function bookmark(Request $request){
+        $this->query($request->uuid, 'bookmarked_post');
+        return response()->json(['status' => 'Success']);
+    }
+
+    private function query($uuid, $type){
+        $post = Post::query()->where('uuid', $uuid)->first();
+        $matchThese = ['user_id' => Auth()->user()->id, 'post_id' => $post->id];
+
+        if(DB::table($type)->where($matchThese)->first()) {
+              DB::table($type)->where($matchThese)->delete();
+        } else {
+            DB::table($type)->insert([
+                'user_id' => Auth()->user()->id,
+                'post_id' => $post->id,
+                'created_at' => Carbon::now(),
+            ]);
+        }
     }
 }

@@ -17,6 +17,7 @@ class User extends Authenticatable
 
     use Billable;
 
+    public $timestamps = true;
     /**
      * The attributes that are mass assignable.
      *
