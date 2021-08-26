@@ -29,7 +29,7 @@ class ProfileController extends Controller
             abort(404);
         }
 
-        $posts = $user->post()->get();
+        $posts = $user->post()->orderBy('created_at', 'DESC')->get();
 
         return view('partials.profile.index', ['user' => $user, 'posts' => $posts]);
     }

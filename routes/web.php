@@ -31,10 +31,15 @@ Route::prefix('post')->group(function () {
     Route::get('/show/{post:uuid}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
     Route::post('/like', [App\Http\Controllers\PostController::class, 'like'])->name('post.like');
     Route::post('/bookmark/', [App\Http\Controllers\PostController::class, 'bookmark'])->name('post.bookmark');
-    Route::get('/follow/{post:uuid}', [App\Http\Controllers\PostController::class, 'follow'])->name('post.follow');
+    Route::post('/follow/', [App\Http\Controllers\PostController::class, 'follow'])->name('post.follow');
 
     Route::post('/comment/store', [App\Http\Controllers\CommentController::class, 'store'])->name('comment.add');
     Route::post('/reply/store', [App\Http\Controllers\CommentController::class, 'replyStore'])->name('reply.add');
 });
 
+Route::prefix('user')->group(function () {
+    Route::post('/{user}/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
+    Route::delete('/{user}/unfollow', [App\Http\Controllers\UserController::class, 'unfollow'])->name('unfollow');
+    Route::get('/notifications', [App\Http\Controllers\UserController::class, 'notifications']);
+});
 Route::get('storage/public/post/{user}/{slug}/{post_id}', [App\Http\Controllers\ImageController::class, 'show'])->name('image.show');
