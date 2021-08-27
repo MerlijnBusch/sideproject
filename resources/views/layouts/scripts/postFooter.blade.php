@@ -32,4 +32,20 @@
               })
           })
     }
+
+    function postFooterFollowUser(username, url){
+      fetch(url, {
+          headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json, text-plain, */*",
+              "X-Requested-With": "XMLHttpRequest",
+              "X-CSRF-TOKEN": token
+          },
+              method: 'post',
+              credentials: "same-origin",
+              body: JSON.stringify({
+                      name : username
+              })
+          })
+    }
 </script>

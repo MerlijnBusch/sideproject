@@ -34,7 +34,7 @@ class UserFollowed extends Notification implements ShouldQueue
         return ['database'];
     }
 
-    public function toDatabase($notifiable)
+    public function toDatabase ($notifiable)
     {
         return [
             'follower_id' => $this->follower->id,

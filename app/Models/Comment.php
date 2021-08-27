@@ -10,7 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     public $timestamps = true;
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

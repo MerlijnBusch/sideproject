@@ -23,6 +23,9 @@
           Settings
       </li>
     </ul>
+
+    {{--dd(auth()->user()->unreadNotifications()->limit(5)->get()->toArray())--}}
+
     <hr>
     <footer>
       <li>

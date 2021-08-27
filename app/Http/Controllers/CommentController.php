@@ -23,7 +23,7 @@ class CommentController extends Controller
     public function replyStore(Request $request)
     {
         $comment = Comment::findOrFail($request->get('comment_id'));
-        if(!is_null($comment->parent_id)) return back();
+        if (!is_null($comment->parent_id)) return back();
         $reply = new Comment();
         $reply->comment = $request->get('comment');
         $reply->user()->associate($request->user());

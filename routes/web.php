@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/test', function () {                                                                                    //->pluck('data')
+    dd(auth()->user()->unreadNotifications()->where('data->follower_id', 2)->where('data->follower_name', "johndoe 2")->first());
+});
+
 
 Auth::routes();
 
@@ -40,6 +44,6 @@ Route::prefix('post')->group(function () {
 Route::prefix('user')->group(function () {
     Route::post('/{user}/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
     Route::delete('/{user}/unfollow', [App\Http\Controllers\UserController::class, 'unfollow'])->name('unfollow');
-    Route::get('/notifications', [App\Http\Controllers\UserController::class, 'notifications']);
+    //Route::get('/notifications', [App\Http\Controllers\UserController::class, 'notifications']);
 });
 Route::get('storage/public/post/{user}/{slug}/{post_id}', [App\Http\Controllers\ImageController::class, 'show'])->name('image.show');

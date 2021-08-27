@@ -55,45 +55,45 @@ class User extends Authenticatable
     ];
 
 
-    public function role()
+    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
 
         return $this->belongsTo('App\Models\Role');
 
     }
 
-    public function post()
+    public function post(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
 
         return $this->hasMany('App\Models\Post', 'user_id');
 
     }
 
-    public function followers()
+    public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(self::class, 'follow_user', 'follow_id', 'user_id')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
-    public function follows()
+    public function follows(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(self::class, 'follow_user', 'user_id', 'follow_id')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
-    public function follow($userId)
+    public function follow($userId): User
     {
         $this->follows()->attach($userId);
         return $this;
     }
 
-    public function unfollow($userId)
+    public function unfollow($userId): User
     {
         $this->follows()->detach($userId);
         return $this;
     }
 
-    public function isFollowing($userId)
+    public function isFollowing($userId): bool
     {
         return !is_null($this->follows()->where('follow_id', $userId)->first());
     }

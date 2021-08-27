@@ -9,7 +9,8 @@ class Permissions extends Model
 {
     use HasFactory;
 
-    public function getAllPermissions() {
+    public function getAllPermissions()
+    {
         try {
             $reflectionClass = new ReflectionClass($this);
             return $reflectionClass->getConstants();
