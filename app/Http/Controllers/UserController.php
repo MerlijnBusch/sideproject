@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +23,19 @@ class UserController extends Controller
             return back()->withError("You can't follow yourself");
         }
         if (!$follower->isFollowing($user->id)) {
+
+            if (
+                !$user->unreadNotifications()
+                    ->where('data->follower_id', $follower->id)
+                    ->where('data->follower_name', $follower->name)
+                    ->where('created_at', '>', Carbon::now()->subMinutes(10)->toDateTimeString())
+                    ->exists()
+            ) {
+                $user->notify(new UserFollowed($follower));
+            }
+
             $follower->follow($user->id);
 
-            $user->notify(new UserFollowed($follower));
 
             return back()->withSuccess("You are now friends with {$user->name}");
         }

@@ -23,14 +23,15 @@
 
     @include('layouts.nav')
 
-    <div class="container">
-        @yield('page-title')
-    </div>
+
     <main class="main-content container">
-
-
         @include('layouts.sidebar')
         <div class="main-content-items">
+
+            <div class="container">
+                @yield('page-title')
+            </div>
+
             @yield('content')
         </div>
     </main>

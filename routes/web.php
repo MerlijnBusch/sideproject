@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get('/test', function () {                                                                                    //->pluck('data')
-    dd(auth()->user()->unreadNotifications()->where('data->follower_id', 2)->where('data->follower_name', "johndoe 2")->first());
+    dd(auth()->user()->unreadNotifications()->get()->toArray());
 });
 
 
