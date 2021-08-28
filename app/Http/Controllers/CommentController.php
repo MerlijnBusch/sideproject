@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\NewComment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -16,6 +18,8 @@ class CommentController extends Controller
 
         $post = Post::find($request->post_id);
         $post->comments()->save($comment);
+
+        $this->ExecuteNewNotificationForNewComment($comment, $post);
 
         return back();
     }
@@ -32,7 +36,20 @@ class CommentController extends Controller
         $post = Post::find($request->get('post_id'));
         $post->comments()->save($reply);
 
+        $this->ExecuteNewNotificationForNewComment($reply, $post);
+
         return back();
 
+    }
+
+    private function ExecuteNewNotificationForNewComment($comment, $post){
+
+        //Check when ever there are already is a comment in the last amount x of time before we create a new notification
+        //so that we dont spam the user if mutiple user commented under the post at the same time!
+        if(!$post->user->unreadNotifications()
+            ->where('data->post_id', $post->id)
+            ->where('created_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())
+            ->exists()
+        ) $post->user->notify(new NewComment($comment, $post));
     }
 }

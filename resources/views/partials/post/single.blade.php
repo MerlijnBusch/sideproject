@@ -3,7 +3,7 @@
         Featured
     </div>
     <div class="card-body">
-        <img class="card-img-top profile-index-image" src="{{  url($post->image_path . "/" . $post->id)}}"/>
+        <img class="card-img-top post-single-container-image" src="{{  url($post->image_path . "/" . $post->id)}}"/>
         <h5 class="card-title">{{$post->title}}</h5>
         <p class="card-text">{{$post->description}}</p>
     </div>

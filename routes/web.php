@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get('/test', function () {                                                                                    //->pluck('data')
-    dd(auth()->user()->unreadNotifications()->get()->toArray());
+    dd("test");
 });
 
 
@@ -29,6 +29,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('profile')->group(function () {
     Route::get('/{name}', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
 });
+
+Route::prefix('notifications')->group(function () {
+    Route::get('/index', [App\Http\Controllers\NotificationController::class, 'index'])->name('notification.index');
+});
+
 
 Route::prefix('post')->group(function () {
     Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');

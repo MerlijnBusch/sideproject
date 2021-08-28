@@ -8,7 +8,7 @@
           <a class="" href="{{ route('profile.index', auth()->user()->name) }}">Mine story</a>
       </li>
       <li>
-          Notifications
+          <a class="" href="{{ route('notification.index') }}">Notifications</a>
       </li>
       <li>
           Messages
@@ -23,9 +23,6 @@
           Settings
       </li>
     </ul>
-
-    {{--dd(auth()->user()->unreadNotifications()->limit(5)->get()->toArray())--}}
-
     <hr>
     <footer>
       <li>

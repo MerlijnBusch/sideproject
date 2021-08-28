@@ -2,71 +2,6 @@
 
 @section('page-title')
 
-    <style>
-        .profile-banner-container-image-container {
-            max-height: 180px;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .profile-banner-container-image {
-            object-fit: cover;
-            overflow: hidden;
-            position: relative;
-            object-position: center -140px;
-            width: 100%;
-        }
-
-        .profile-banner-container {
-            position: relative;
-            text-align: center;
-            color: black;
-        }
-
-        .profile-banner-container-actions {
-            position: absolute;
-            top: 8px;
-            left: 16px;
-            z-index: 10;
-        }
-
-        .profile-banner-container-actions-btn-name {
-            display: flex;
-            align-items: center;
-        }
-
-        .profile-banner-container-second-avatar {
-            display: block;
-            width: 100px;
-            height: 100px;
-            -o-object-fit: cover;
-            object-fit: cover;
-            position: relative;
-            border: 2px solid white;
-            margin-top: -40px;
-            border-radius: 1000px;
-            margin-left: 10px;
-        }
-        .profile-banner-container-second-actions {
-            margin-left: auto;
-        }
-        .profile-banner-container-actions-inf {
-            display: flex;
-            align-items: center;
-        }
-
-        .profile-banner-container-second {
-            flex-wrap: wrap;
-            display: flex;
-        }
-
-        .profile-banner-container-second-actions {
-            margin-left: auto;
-        }
-
-
-
-    </style>
     <div class="profile-banner-container ">
         <div class="profile-banner-container-actions">
             <div class="profile-banner-container-actions-btn-name">
@@ -113,9 +48,11 @@
 
 @section('content')
 
-    @foreach($posts as $post)
+    @forelse ($posts as $post)
         @include('partials.post.single', ['post' => $post])
-    @endforeach
+    @empty
+        <p>This user still needs to create post</p>
+    @endforelse
 
 @endsection
 @section('footer-scripts')
