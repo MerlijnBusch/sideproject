@@ -35,17 +35,17 @@ class Post extends Model
         'created_at'
     ];
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function comments()
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany('App\Models\Comment', 'commentable')->whereNull('parent_id');
     }
 
-    public function totalAmountOfLikesForPost(Post $post)
+    public function totalAmountOfLikesForPost(Post $post): int
     {
         return DB::table('like_post')->where('post_id', $post->id)->count();
     }

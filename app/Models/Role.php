@@ -26,7 +26,7 @@ class Role extends Model
 
     protected $casts = [];
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
 
         return $this->hasMany('App\Models\User', 'role_id');

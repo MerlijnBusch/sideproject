@@ -97,4 +97,9 @@ class User extends Authenticatable
     {
         return !is_null($this->follows()->where('follow_id', $userId)->first());
     }
+
+    public function settings(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne('App\Models\UserSettings');
+    }
 }
