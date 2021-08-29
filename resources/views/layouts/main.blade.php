@@ -27,10 +27,7 @@
     <main class="main-content container">
         @include('layouts.sidebar')
         <div class="main-content-items">
-
-            <div class="container">
-                @yield('page-title')
-            </div>
+            @yield('page-title')
 
             @yield('content')
         </div>

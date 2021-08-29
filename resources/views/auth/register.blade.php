@@ -1,25 +1,29 @@
+@extends("auth.layouts")
 
-<form method="POST" action="{{ route('register') }}">
-    @csrf
+@section('content')
+<div id="register" class="auth-main-form-container">
+    <h4 class="auth-main-container-header">Create an Account</h4>
+    <form method="POST" action="{{ route('register') }}" class="auth-main-container-form">
+        @csrf
 
-    name
-    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+        <input id="name" type="text" placeholder="{{ __('Name') }}" class="auth-main-container-input" name="name"
+               value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-    email
-    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+        <input id="email" type="email" placeholder="{{ __('Email') }}" class="auth-main-container-input" name="email"
+               value="{{ old('email') }}" required autocomplete="email">
 
-    passowrd
-    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+        <input id="password" type="password" placeholder="{{ __('Password') }}" class="auth-main-container-input"
+               name="password" required autocomplete="new-password">
 
-    repeat password
-    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+        <input id="password-confirm" type="password" placeholder="{{ __('Confirm Password') }}" class="auth-main-container-input" name="password_confirmation" required
+                   autocomplete="new-password">
 
-    <div class="col-md-6">
-        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-    </div>
 
-    <button type="submit" class="btn btn-primary">
-        {{ __('Register') }}
-    </button>
+        <button type="submit" class="auth-main-container-btn">
+            {{ __('Register') }}
+        </button>
 
-</form>
+    </form>
+</div>
+
+@endsection

@@ -1,32 +1,35 @@
+@extends("auth.layouts")
 
-<form method="POST" action="{{ route('login') }}">
-    @csrf
+@section('content')
+    <div id="login" class="auth-main-form-container">
+    <h4 class="auth-main-container-header">Sign in</h4>
 
-    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    <form method="POST" action="{{ route('login') }}" class="auth-main-container-form">
+        @csrf
 
-    <div class="col-md-6">
-        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-    </div>
+        <div class="">
+            <input id="email" type="email" class="auth-main-container-input" name="email"
+                   value="{{ old('email') }}" required autocomplete="email" autofocus>
+        </div>
 
-    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+        <div class="">
+            <input id="password" type="password" class="auth-main-container-input"
+                   name="password" required autocomplete="current-password">
+        </div>
 
-    <div class="col-md-6">
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-    </div>
+        @if (Route::has('password.request'))
+            <a class="auth-main-container-forgotpassword" href="{{ route('password.request') }}">
+                {{ __('Forgot Your Password?') }}
+            </a>
+        @endif
 
-    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+        <button type="submit" class="auth-main-container-btn">
+            {{ __('Login') }}
+        </button>
 
-    <label class="form-check-label" for="remember">
-        {{ __('Remember Me') }}
-    </label>
 
-    <button type="submit" class="btn btn-primary">
-        {{ __('Login') }}
-    </button>
+    </form>
 
-    @if (Route::has('password.request'))
-        <a class="btn btn-link" href="{{ route('password.request') }}">
-            {{ __('Forgot Your Password?') }}
-        </a>
-    @endif
-</form>
+</div>
+
+@endsection
