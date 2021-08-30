@@ -51,10 +51,4 @@ class UserController extends Controller
         }
         return back()->withError("You are not following {$user->name}");
     }
-
-    public function notifications()
-    {
-        //dd(array_unique(auth()->user()->unreadNotifications()->where('type', '!=', 'App\Notifications\UserFollowed')->get()->toArray(), SORT_REGULAR));
-        //return auth()->user()->unreadNotifications()->limit(5)->get()->toArray();;
-    }
 }

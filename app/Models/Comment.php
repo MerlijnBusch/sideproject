@@ -20,4 +20,9 @@ class Comment extends Model
     {
         return $this->hasMany('App\Models\Comment', 'parent_id');
     }
+
+    public function bookmarkItem()
+    {
+        return $this->morphToMany(BookmarkItem::class, 'bookmark_item');
+    }
 }

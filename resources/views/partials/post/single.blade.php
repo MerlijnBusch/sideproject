@@ -15,7 +15,6 @@
 
         {{$post->totalAmountOfLikesForPost($post)}}
         <button onclick="postFooter('{{$post->uuid}}', '{{ route('post.like')}}')">like</button>
-        <button onclick="postFooter('{{$post->uuid}}', '{{ route('post.bookmark')}}')">bookmark</button>
 
     </div>
 </div>

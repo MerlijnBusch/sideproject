@@ -40,6 +40,7 @@
         height: 600px;
         margin: 0 auto;
         flex-direction: row;
+        box-shadow: -7px -7px 79px #e4e4e4;
     }
 
     .auth-main-switch {
@@ -126,6 +127,7 @@
         width: 200px;
         margin: auto;
     }
+
 </style>
 
 @include('partials.handlers.success')

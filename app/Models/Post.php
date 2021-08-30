@@ -49,4 +49,9 @@ class Post extends Model
     {
         return DB::table('like_post')->where('post_id', $post->id)->count();
     }
+
+    public function bookmarkItem()
+    {
+        return $this->morphToMany(BookmarkItem::class, 'bookmark_item');
+    }
 }

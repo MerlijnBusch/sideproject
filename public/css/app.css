@@ -10106,3 +10106,8 @@ body {
   -o-object-fit: cover;
      object-fit: cover;
 }
+
+.bookmark-container {
+  display: flex;
+  flex-direction: row;
+}

@@ -39,7 +39,7 @@ class NewComment extends Notification
             'comment_id' => $this->comment->id,
             'comment_text' => $this->comment->comment,
             'commenter_user_id' => $this->comment->user_id,
-            'post_id' => $this->post->id,
+            'post_uuid' => $this->post->uuid,
         ];
     }
 }

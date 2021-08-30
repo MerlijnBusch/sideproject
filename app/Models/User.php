@@ -69,6 +69,13 @@ class User extends Authenticatable
 
     }
 
+    public function bookmarks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+
+        return $this->hasMany('App\Models\Bookmark', 'user_id');
+
+    }
+
     public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(self::class, 'follow_user', 'follow_id', 'user_id')

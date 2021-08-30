@@ -32,7 +32,7 @@ class NewPost extends Notification implements ShouldQueue
         return [
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
-            'post_id' => $this->post->id,
+            'post_uuid' => $this->post->uuid,
         ];
     }
 }

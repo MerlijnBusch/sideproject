@@ -119,25 +119,20 @@ class PostController extends Controller
         //
     }
 
-    public function like(Request $request)
+    public function like(Request $request): \Illuminate\Http\JsonResponse
     {
-        $this->query($request->uuid, 'like_post');
+        $this->query($request->uuid);
         return response()->json(['status' => 'Success']);
     }
 
-    public function bookmark(Request $request){
-        $this->query($request->uuid, 'bookmarked_post');
-        return response()->json(['status' => 'Success']);
-    }
-
-    private function query($uuid, $type){
+    private function query($uuid){
         $post = Post::query()->where('uuid', $uuid)->first();
         $matchThese = ['user_id' => Auth()->user()->id, 'post_id' => $post->id];
 
-        if(DB::table($type)->where($matchThese)->first()) {
-              DB::table($type)->where($matchThese)->delete();
+        if(DB::table('like_post')->where($matchThese)->first()) {
+              DB::table('like_post')->where($matchThese)->delete();
         } else {
-            DB::table($type)->insert([
+            DB::table('like_post')->insert([
                 'user_id' => Auth()->user()->id,
                 'post_id' => $post->id,
                 'created_at' => Carbon::now(),

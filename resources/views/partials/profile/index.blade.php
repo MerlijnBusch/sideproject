@@ -55,6 +55,7 @@
     @endforelse
 
 @endsection
+
 @section('footer-scripts')
     @include('layouts.scripts.postFooter')
 @endsection

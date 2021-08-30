@@ -14,7 +14,7 @@
             {{ __('sidebar.Messages') }}
         </li>
         <li>
-            {{ __('sidebar.Bookmarks') }}
+            <a class="" href="{{ route('bookmark.index') }}">{{ __('sidebar.Bookmarks') }}</a>
         </li>
         <li>
             {{ __('sidebar.Subscriptions') }}
