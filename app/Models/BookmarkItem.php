@@ -11,6 +11,11 @@ class BookmarkItem extends Model
 
     protected $table = 'bookmark_items';
 
+    protected $with = [
+        'posts',
+        'comments',
+    ];
+
     protected $fillable = [
         'bookmarks_id',
     ];

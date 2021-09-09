@@ -23,16 +23,16 @@ class DatabaseSeeder extends Seeder
         \App\Models\Comment::factory(50)->create();
         \App\Models\Bookmark::factory(10)->create();
 
-        foreach ((range(1, 6)) as $index) {
-            $post = Post::all()->random();
+        foreach ((range(1, 3)) as $index) {
+            $post = Post::query()->where("id", $index)->first();
             $bookmarkItem = new BookmarkItem();
-            $post->bookmarkItem()->attach($bookmarkItem, ['bookmarks_id' => Bookmark::all()->random()->id]);
+            $post->bookmarkItem()->attach($bookmarkItem, ['bookmarks_id' => 1]);
         }
 
-        foreach ((range(1, 25)) as $index) {
-            $comment = Comment::all()->random();
-            $bookmarkItem = new BookmarkItem();
-            $comment->bookmarkItem()->attach($bookmarkItem, ['bookmarks_id' => Bookmark::all()->random()->id]);
+        foreach ((range(1, 10)) as $index) {
+            $comment = Comment::query()->where("id", $index)->first();
+            $Item = new BookmarkItem();
+            $comment->bookmarkItem()->attach($Item, ['bookmarks_id' => 1]);
         }
 
     }

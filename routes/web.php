@@ -17,8 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/test', function () {                                                                                    //->pluck('data')
-    dd("test");
+Route::get('/test', function () {
+    $bookmark = \App\Models\Bookmark::where('id', 1)->first();
+    $test = $bookmark->items()
+        ->get()
+        ->toArray();
+
+   dd($test);
 });
 
 
@@ -36,7 +41,7 @@ Route::prefix('notifications')->group(function () {
 
 Route::prefix('bookmark')->group(function () {
     Route::get('/index', [App\Http\Controllers\BookmarkController::class, 'index'])->name('bookmark.index');
-    Route::get('/{bookmark}', [App\Http\Controllers\BookmarkController::class, 'ajaxGet'])->name('bookmark.ajaxGet');
+    Route::get('/{bookmark}', [App\Http\Controllers\BookmarkController::class, 'bookmarkItems'])->name('bookmark.bookmarkItems');
 });
 
 
