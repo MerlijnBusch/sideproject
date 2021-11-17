@@ -24,19 +24,24 @@ class BookmarkController extends Controller
 
     public function bookmarkItems(Bookmark $bookmark): \Illuminate\Http\JsonResponse
     {
-        $posts = $bookmark->items()
-            ->where("bookmark_item_type", 'App\\Models\\Post')
-            ->with('posts')
-            ->get()
-            ->toArray();
+        if($bookmark->user()->first()->id != auth()->user()->id)
+            return response()->json(["status" => "error", "message" => "this is not your bookmark!"]);
 
-        $comments = $bookmark->items()
-            ->where("bookmark_item_type", 'App\\Models\\Comment')
-            ->with('comments')
-            ->get()
-            ->toArray();
+        $data = $bookmark->items()
+            ->orderBy("created_at", "DESC")
+            ->get();
 
-        return response()->json(['posts' => $posts, 'comments' => $comments]);
+        //@todo remove user_ids from the array list!
+        foreach ($data as $item) {
+            if ($item["bookmark_item_type"] == "App\\Models\\Post") {
+                $item["post"] = Post::query()->where("id", $item["bookmark_item_id"])->first();
+            }
+            if ($item["bookmark_item_type"] == "App\\Models\\Comment") {
+                $item["comment"] = Comment::query()->where("id", $item["bookmark_item_id"])->first();
+            }
+        }
+
+        return response()->json($data);
     }
 
 }

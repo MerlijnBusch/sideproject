@@ -2,7 +2,7 @@
 
 @section('page-title')
 
-<h4>Bookmarks!</h4>
+    <h4>Bookmarks!</h4>
 
 @endsection
 
@@ -10,11 +10,11 @@
 
     <div class="bookmark-container">
         <div>
-    @foreach ($bookmarks as $bookmark)
-        <div  onclick="getBookMarkData('{{route('bookmark.bookmarkItems', $bookmark->id)}}')">
-        {{$bookmark->type}} <br>
-        </div>
-    @endforeach
+            @foreach ($bookmarks as $bookmark)
+                <div onclick="getBookMarkData('{{route('bookmark.bookmarkItems', $bookmark->id)}}')">
+                    {{$bookmark->type}} <br>
+                </div>
+            @endforeach
         </div>
         <div id="bookmark-container-item-content">
             loading content
@@ -22,60 +22,83 @@
     </div>
 
     <script type="text/javascript">
-        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-
-        function sendPostData(data, url){
-            fetch(url, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json, text-plain, */*",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "X-CSRF-TOKEN": token
-                },
-                method: 'post',
-                credentials: "same-origin",
-                body: JSON.stringify( data )
-            })
-        }
-
         function getBookMarkData(url) {
+            document.dispatchEvent(new CustomEvent('bookmark-loading'))
             fetch(url)
                 .then(response => response.json())
-                .then(data => console.log(data))
-                .then(() => {
-                    document.getElementById("bookmark-container-item-content").append(el)
+                .then((data) => {
+                    document.dispatchEvent(new CustomEvent('bookmark-data', {
+                        detail: data,
+                    }))
                 })
-
         }
 
-        class CustomComponent extends HTMLElement {
+
+        class PostComponent extends HTMLElement {
+
+            _style = document.createElement('style');
+            _template = document.createElement('template');
+
             constructor() {
                 super();
 
-                const _style = document.createElement('style');
-                const _template = document.createElement('template');
+                document.addEventListener("bookmark-loading", () => {
+                    this.setToLoading()
+                });
 
-                _style.innerHTML = `
+                document.addEventListener("bookmark-data", (evt => {
+                    this.updateComponent(evt.detail)
+                }));
+
+                this._style.innerHTML = `
                 h1 {
                   color: tomato;
                 }
                 `;
 
-                _template.innerHTML = `
-                    <h1>
-                      My Custom Element
-                    </h1>
-                  `;
+                this._template.innerHTML = `<div class="post-component-container"></div>`;
 
-                this.attachShadow({ mode: 'open' });
-                this.shadowRoot.appendChild(_style);
-                this.shadowRoot.appendChild(_template.content.cloneNode(true));
+                this.attachShadow({mode: 'open'});
+                this.shadowRoot.appendChild(this._style);
+                this.shadowRoot.appendChild(this._template.content.cloneNode(true));
+            }
+
+            updateComponent(data) {
+                console.log(data);
+
+                const div = this.shadowRoot.querySelector(".post-component-container");
+                div.innerHTML = '';
+                data.forEach((item) => {
+                    if(item.bookmark_item_type.toLowerCase().includes("comment"))
+                        div.innerHTML += this.displayComment(item.comment)
+                    if(item.bookmark_item_type.toLowerCase().includes("post"))
+                        div.innerHTML += this.displayPost(item.post)
+                    console.log(item)
+                })
+            }
+
+            displayPost(post){
+                return `<h1>${post.id}</h1></br>`
+            }
+
+            displayComment(comment){
+                return `<h1>${comment.id}</h1></br>`
+            }
+
+            setToLoading() {
+                const div = this.shadowRoot.querySelector(".post-component-container");
+                div.innerHTML = '';
+                div.innerHTML = `
+                    <h1>
+                       Loading
+                    </h1>
+                `;
             }
         }
 
-        customElements.define('custom-component', CustomComponent);
-        const el = document.createElement('custom-component')
+        customElements.define('post-component', PostComponent);
+        const el = document.createElement('post-component');
+        document.getElementById("bookmark-container-item-content").append(el);
 
     </script>
 @endsection
