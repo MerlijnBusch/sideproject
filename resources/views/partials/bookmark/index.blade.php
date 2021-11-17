@@ -78,7 +78,7 @@
             }
 
             displayPost(post){
-                return `<h1>${post.id}</h1></br>`
+                return `<h1>${post.uuid}</h1></br>`
             }
 
             displayComment(comment){

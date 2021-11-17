@@ -12,14 +12,14 @@
 
     @include('partials.post.single', ['post' => $post])
 
-    @include('partials.post.comment.replies', ['comments' => $post->comments, 'post_id' => $post->id])
+    @include('partials.post.comment.replies', ['comments' => $post->comments, 'post_uuid' => $post->uuid])
 
     <h5>Leave a comment</h5>
     <form method="post" action="{{ route('comment.add') }}">
         @csrf
         <div class="form-group">
             <input type="text" name="comment" class="form-control"/>
-            <input type="hidden" name="post_id" value="{{ $post->id }}"/>
+            <input type="hidden" name="post_uuid" value="{{ $post->uuid }}"/>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;"

@@ -7,7 +7,8 @@
                 @endforeach
             </ul>
         @else
-            {{ session()->get('errors') }}
+            {{session()->get('errors') }}
+
         @endif
     </div>
 @endif

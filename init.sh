@@ -1,3 +1,4 @@
+#!/bin/bash
 
 title1="start serve"
 title2="start npm run watch"
